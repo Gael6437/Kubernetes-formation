@@ -4,9 +4,9 @@
 
 Ce workshop peut être réalisé sur Windows 10 ou linux pour chaque commande si nécessaire il y aura les versions dans un paragraphe à dérouler.
 
-Pour réaliser ce worshop vous devez avoir [docker](https://www.docker.com/products/docker-desktop) installé sur votre machine et être l'admin de votre poste de travail.
+Pour réaliser ce worshop vous devez avoir [docker](https://www.docker.com/products/docker-desktop) (minimun v20.10.5) installé sur votre machine et être l'admin de votre poste de travail.
 
-- Installer l'outil [lens](https://k8slens.dev) pour visualiser les ressources d'un cluster
+- Installer l'outil [OpenLens](https://github.com/MuhammedKalkan/OpenLens) pour visualiser les ressources d'un cluster
 - Installer les utilitaires ci-dessous en fonction de votre système d'exploitation
 
 <details>
@@ -31,6 +31,12 @@ Créer un répertoire pour ces deux binaires et ajouter ce répertoire à votre 
 
 </details>
 
+<details>
+<summary>Par Krew </summary>
+
+C'est un gestionnaire de plugins que l'on peut ajouter à Kubectl [Krew - How to start](https://krew.sigs.k8s.io/docs/user-guide/quickstart/)
+
+</details>
 ## Yaml
 
 Pour déclarer des ressources dans un cluster kubernetes on utilise généralement le format yaml, pour rappel:
