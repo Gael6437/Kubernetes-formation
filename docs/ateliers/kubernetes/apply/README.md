@@ -17,7 +17,7 @@ Il contient de manière non exaustive:
 Pour appliquer ces changements:
 
 ```shell
-k apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+k apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 ```
 
 ## Exercice 1
