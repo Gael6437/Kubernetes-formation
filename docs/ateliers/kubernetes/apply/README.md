@@ -3,7 +3,7 @@
 Par défaut kubernetes est installé sans interface graphique, il existe cependant une interface officielle.
 Nous allons profiter de cet atelier pour l'installler et voir une manière d'installer des ressources dans un cluster.
 
-Consulter la page [dashboard](https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml)
+Consulter la page [dashboard](https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml)
 Ce fichier yaml contient toutes les ressources nécessaires pour réaliser le déploiement du dashboard.
 
 Il contient de manière non exaustive:
