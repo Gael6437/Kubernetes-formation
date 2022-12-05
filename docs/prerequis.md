@@ -37,6 +37,7 @@ Créer un répertoire pour ces deux binaires et ajouter ce répertoire à votre 
 C'est un gestionnaire de plugins que l'on peut ajouter à Kubectl [Krew - How to start](https://krew.sigs.k8s.io/docs/user-guide/quickstart/)
 
 </details>
+
 ## Yaml
 
 Pour déclarer des ressources dans un cluster kubernetes on utilise généralement le format yaml, pour rappel:
@@ -53,12 +54,12 @@ Pour déclarer des ressources dans un cluster kubernetes on utilise généraleme
 receipt: Oz-Ware Purchase Invoice
 date: 2012-08-06
 customer:
-    given: Dorothy
-    family: Gale
+  given: Dorothy
+  family: Gale
 
 items:
-    - part_no: A4786
-      descrip: Water Bucket (Filled)
-      price: 1.47
-      quantity: 4
+  - part_no: A4786
+    descrip: Water Bucket (Filled)
+    price: 1.47
+    quantity: 4
 ```

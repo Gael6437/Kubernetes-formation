@@ -17,9 +17,7 @@ Executer les commandes suivantes:
 ```shell
 # Pour suivre le cycle de vie du pod hello lancer cette commande dans une autre fenêtre
 k get po -w
-# Création du pod kubernetes < 1.20
-k run --generator=run-pod/v1 --image=nginxdemos/hello hello --restart='Never'
-# Création du pod kubernetes > 1.20
+# Création du pod kubernetes
 k run --image=nginxdemos/hello hello --restart='Never'
 ```
 

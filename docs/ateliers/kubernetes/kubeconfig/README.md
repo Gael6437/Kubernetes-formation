@@ -63,7 +63,7 @@ k3d kubeconfig merge workshop -d
 kubectl cluster-info
 ```
 
-## Lens
+## OpenLens
 
-Lens est une GUI qui permet de consulter les ressources d'un cluster.
-Configurer Lens pour se connecter au cluster avec le kubeconfig qui a été précédement généré.
+OpenLens est une GUI qui permet de consulter les ressources d'un cluster.
+Configurer OpenLens pour se connecter au cluster avec le kubeconfig qui a été précédement généré.
