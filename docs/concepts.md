@@ -4,20 +4,20 @@ next: "/ateliers/kubernetes/"
 
 # Concepts
 
-## Cluster kubernetes
+## Cluster Kubernetes
 
 ![concept](./assets/kubernetes.png)
 
 ### Control plane
 
-La partie management du cluster est composée de plusieurs éléments qui sont souvent redondés. Dans un cluster managé le _control plane_ n'est pas accéssible directement et c'est le clouder qui le provisionne à la création du cluster.
-Un cluster kubernetes s'efforce à tout instant de s'assurer que l'état souhaité correspond à l'état actuel du cluster, les actions sont réalisées par des déclenchements d'evenements asynchrones.
+La partie management du cluster est composée de plusieurs éléments qui sont souvent redondés. Dans un cluster managé le _control plane_ n'est pas accessible directement et c'est le clouder qui le provisionne à la création du cluster.
+Un cluster Kubernetes s'efforce à tout instant de s'assurer que l'état souhaité correspond à l'état actuel du cluster, les actions sont réalisées par des déclenchements d'évènements asynchrones.
 
 #### API
 
-Le control plane expose une api qui permet aussi bien aux clients (un devops par exemple) qu'aux différents éléments techniques du cluster de communiquer avec les contrôleurs et les nodes.
-L'api implemente REST, des certificats permettent de garantir l'origine des appels. L'api est versionnée et extensible.
-Par exemple pour avoir l'état d'une node on va requeter l'api qui exposera l'état de la node en interrogeant les services nécessaires, on ne se connectera pas directement à une node.
+Le control plane expose une API qui permet aussi bien aux clients (un devops par exemple) qu'aux différents éléments techniques du cluster de communiquer avec les contrôleurs et les nodes.
+L'API implémente REST, des certificats permettant de garantir l'origine des appels. L'API est versionnée et extensible.
+Par exemple, pour avoir l'état d'une node on va requêter l'API qui exposera l'état de la node en interrogeant les services nécessaires, on ne se connectera pas directement à une node.
 
 ![concept](./assets/cluster.png)
 
@@ -35,28 +35,28 @@ Réalise l'assignation des charges de travail (Pods) sur les nodes en utilisant 
 
 ### Nodes
 
-Les nodes forment la partie qui execute la charge de travail (Pods). Les nodes sont souvent hétérogènes. Dans un cluster managé les nodes sont gérées par le clouder aussi bien la partie provisonnement de l'instance (vm) que l'installation des composants et les configurations nécessaires pour rejoindre le cluster.
+Les nodes forment la partie qui exécute la charge de travail (Pods). Les nodes sont souvent hétérogènes. Dans un cluster managé les nodes sont gérées par le clouder, aussi bien la partie provisonnement de l'instance (VM) que l'installation des composants et les configurations nécessaires pour rejoindre le cluster.
 
-#### kubeproxy & kubelet
+#### Kubeproxy & Kubelet
 
 Sur une node on retrouve trois éléments:
 
 - le kubeproxy pour la partie réseau
-- le kubelet qui permet le dialoguer avec le control plane par l'api et qui dialogue avec le container runtime interface (CRI)
-- le CRI souvent docker pour kubernetes < v1.22, cri-o kubernetes > v1.22
+- le kubelet qui permet le dialoguer avec le control plane par l'API et qui dialogue avec le _Container Runtime Interface_ (CRI)
+- le CRI souvent docker pour Kubernetes < v1.22, cri-o Kubernetes > v1.22
 
 ## Ressources
 
-Dans un cluster kubernetes, tout élément est une ressource qui a une définition et des "instances" selon une version de l'API.
+Dans un cluster Kubernetes, tout élément est une ressource qui a une définition et des "instances" selon une version de l'API.
 Une ressource a obligatoirement un nom, il faut ensuite consulter sa définition pour savoir les champs qu'il est possible de paramétrer lors de la création ou mise à jour d'une nouvelle ressource.
-Le champ _kind_ et le champ _apiVersion_ permet à l'api server de valider en fonction de la définition de la ressource en question si la demande est valide.
-Kubernetes offre en standard un certain nombre de ressources qu'il sait gérer, il est possible d'étendre l'api de kubernetes avec des ressources personnalisées (CRD).
-Pour créer ou manipuler les ressources d'un cluster kubernetes on utilise le format de fichier yaml.
+Le champ _kind_ et le champ _apiVersion_ permet à l'API server de valider en fonction de la définition de la ressource en question si la demande est valide.
+Kubernetes offre en standard un certain nombre de ressources qu'il sait gérer, il est possible d'étendre l'API de Kubernetes avec des ressources personnalisées (CRD).
+Pour créer ou manipuler les ressources d'un cluster Kubernetes on utilise le format de fichier yaml.
 
 ### Pods
 
-Un pod est l'élément le plus simple et unitaire qu'un cluster kubernetes sait manipuler.
-Un pod peut etre constitué d'un ou plusieurs containers docker qui vont partager le même contexte (stockage, réseau, isolation, linux namespace, cgroups...).
+Un pod est l'élément le plus simple et unitaire qu'un cluster Kubernetes sait manipuler.
+Un pod peut être constitué d'un ou plusieurs containers docker qui vont partager le même contexte (stockage, réseau, isolation, linux namespace, cgroups...).
 C'est l'unité "pod" qui sera ordonnancée sur une node et donc tous les containeurs au sein d'un pod seront orchestrés sur la même node.
 Généralement on ne manipule pas directement les pods mais les ressources de plus haut niveau.
 
@@ -82,8 +82,8 @@ Cycle de vide d'un pod
 
 ### Deploiement / StatefulSets / Deamonset / Jobs
 
-Pour manipuler plusieurs pods, gérer la redondance, les notions d'haute disponibilité, kubernetes nous permet de déclarer des charges de travail (Deploiement/StatefulSets/Deamonset/Jobs/...).
-Chaque type de charge de travail a ces propres propriétés en terme d'ordonnancement, de mise à jour des pods, ect. Cette ressource gère la gestion de la montée de version des pods, des rollbacks.
+Pour manipuler plusieurs pods, gérer la redondance, les notions de haute disponibilité, Kubernetes nous permet de déclarer des charges de travail (Deploiement/StatefulSets/Deamonset/Jobs/...).
+Chaque type de charge de travail a ses propres propriétés en terme d'ordonnancement, de mise à jour des pods, ect. Cette ressource gère la gestion de la montée de version des pods, des rollbacks.
 
 ```yaml
 apiVersion: apps/v1
@@ -109,7 +109,7 @@ spec:
             - containerPort: 80
 ```
 
-Dans cet exemple on voit la notion de replicas qui indique le nombre de pod souhaité, cela veut dire que le cluster va essayer à tout moment de garantir l'execution de 3 pods nginx (pas forcement sur la même node).
+Dans cet exemple, on voit la notion de replicas qui indique le nombre de pod souhaité, cela veut dire que le cluster va essayer à tout moment de garantir l'exécution de 3 pods nginx (pas forcement sur la même node).
 
 ### Services
 
@@ -128,13 +128,14 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 80
+  type: { Loadbalancer | ClusterIP | NodePort }
 ```
 
 ### Configmaps & Secrets
 
-Un cluster kubernetes manipule uniquement des ressources, une installation standard de kubernetes fournit donc avec des ressources pour répondre aux problèmatiques les plus courantes.
-Il existe par exemple une ressource ConfigMap qui permet de stocker de la configuration qui pourra etre injecté dans un pod.
-Les configmaps sont en clair, il existe une ressource sercets pour chiffrer des informations mais ce chiffrement est par défaut uniquement en base64.
+Un cluster Kubernetes manipule uniquement des ressources, une installation standard de Kubernetes fournit donc avec des ressources pour répondre aux problèmatiques les plus courantes.
+Il existe par exemple une ressource ConfigMap qui permet de stocker de la configuration qui pourra être injectée dans un pod.
+Les configmaps sont en clair, il existe une ressource secrets pour chiffrer des informations mais ce chiffrement est par défaut uniquement en base64.
 
 ```yaml
 apiVersion: v1
@@ -161,13 +162,13 @@ data:
 
 ### CustomResourceDefinitions (CRD)
 
-Il est possible d'étendre l'api de kubernetes pour gérer des ressources "non standard". Pour cela il faut installer au sein du cluster la définition de la nouvelle ressource à l'aide de la ressource CRD.
-Cette nouvelle ressource pourra donc etre gérée et stockée dans le cluster. Pour traiter cette nouvelle ressource il faudra déployer dans le cluster une charge de travail (POD) qui sera capable de gérer cette nouvelle resosurce.
-Par exemple velero qui est un outil de sauvegarde, déclare à son installation des CRD notamment une ressource permettant definir la périodicité des sauvegardes, cela permet de valider le paramétrage renseigné au contraire d'une configmap.
+Il est possible d'étendre l'API de Kubernetes pour gérer des ressources "non standard". Pour cela, il faut installer au sein du cluster la définition de la nouvelle ressource à l'aide de la ressource CRD.
+Cette nouvelle ressource pourra donc être gérée et stockée dans le cluster. Pour traiter cette nouvelle ressource, il faudra déployer dans le cluster une charge de travail (POD) qui sera capable de gérer cette nouvelle ressource.
+Par exemple, _Velero_ qui est un outil de sauvegarde, déclare à son installation des CRD, notamment une ressource permettant de definir la périodicité des sauvegardes, cela permet de valider le paramétrage renseigné au contraire d'une configmap.
 
 ### ServiceAccount & Role
 
-Il existe une ressource Role ou ClusterRole suivant le scope qui définit les actions possibles et les ressources accessibles sur l'api du cluster. Par défaut il existe des rôles prédéfinis mais on peut ajouter des roles personnalisés. Ces roles s'appliquent à un acteur par le biais d'une ressource. Cette ressource va lister les acteurs sur lesquels le rôle ou cluster rôle s'applique, c'est le RoleBinding ou ClusterRoleBinding en fonction du scope namespace ou cluster. Les acteurs sont souvent définis comme des ServiceAccount pour les utilisateurs techniques et les utilisateurs "humain".
+Il existe une ressource Role ou ClusterRole suivant le scope qui définit les actions possibles et les ressources accessibles sur l'API du cluster. Par défaut, il existe des rôles prédéfinis mais on peut ajouter des rôles personnalisés. Ces rôles s'appliquent à un acteur par le biais d'une ressource. Cette ressource va lister les acteurs sur lesquels le rôle ou cluster rôle s'applique, c'est le RoleBinding ou ClusterRoleBinding en fonction du scope namespace ou cluster. Les acteurs sont souvent définis comme des ServiceAccount pour les utilisateurs techniques et les utilisateurs "humains".
 
 ## Deploiements
 
@@ -177,44 +178,44 @@ Schéma présentant une partie des ressources liées au déploiement d'une appli
 
 ## DNS
 
-Dans une distirbution de kubernetes, un resolver dns est installé (CoreDNS). Il permet au cluster de faire la résolution dns à l'interieur du cluster.
-Chaque élément d'un cluster a une ip dans le réseau virtuel du cluster (pods, service, ect). CoreDNS permet de résoudre ces IPs internes qui sont très volatiles par un nom.
-A l'intérieur d'un namespace on pourra accéder à un service directement par son nom. On peut acceder au service d'un autre namespace par l'enregistement _&lt;service&gt;.&lt;namespace&gt;.svc.cluster.local_ (exemple: hello.workshop.svc.cluster.local)
+Dans une distirbution de Kubernetes, un resolver dns est installé (CoreDNS). Il permet au cluster de faire la résolution dns à l'intérieur du cluster.
+Chaque élément d'un cluster a une IP dans le réseau virtuel du cluster (pods, service, ect). CoreDNS permet de résoudre ces IPs internes, qui sont très volatiles, par un nom.
+A l'intérieur d'un namespace, on pourra accéder à un service directement par son nom. On peut acceder au service d'un autre namespace par l'enregistement _&lt;service&gt;.&lt;namespace&gt;.svc.cluster.local_ (exemple: hello.workshop.svc.cluster.local)
 
 ## Helm
 
-Dans l'atelier kubernetes nous allons voir comment déployer une application avec un ou plusieurs fichiers yaml. Cette façon d'installer est fonctionnelle mais n'est pas très souple ni très pratique.
-Helm a été créé pour répondre à ces problématiques.
+Dans l'atelier Kubernetes nous allons voir comment déployer une application avec un ou plusieurs fichiers yaml. Cette façon d'installer est fonctionnelle mais n'est pas très souple ni très pratique.
+Helm a été créé pour répondre à ces problématiques:
 
 - Comment versionner le déploiement d'une application
 - Comment suivre ce qui a été installé sur le cluster
-- Comment gérer l'installation d'une application sur différents clusters/environnements (par exemple différent système de stockage chez les clouders)
-- Comment packager efficacement et de manière lisible des installations complèxes
+- Comment gérer l'installation d'une application sur différents clusters/environnements (par exemple différents systèmes de stockage chez les clouders)
+- Comment packager efficacement et de manière lisible des installations complexes
 
-En regardant ce fichier qui installe l'ingress controller [nginx](https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/scw/deploy.yaml) on peut remarquer la difficulté à maintenir un tel fichier.
+En regardant ce fichier qui installe l'ingress controller [nginx](https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/scw/deploy.yaml), on peut remarquer la difficulté à maintenir un tel fichier.
 
-Helm adresse ces problèmatiques avec un client `helm` qui se connecte à l'api d'un cluster kubernetes sous la forme d'un binaire développé en `Go` (il utilise le même fonctionnment que `kubectl` avec kubeconfig).
-Les applications/services à déployer seront packagés dans une `chart`. Helm utilise `gotemplate` pour proposer du templating en amont du déploiement. Helm installe les ressources dans un cluster kubernetes regroupé sous une `release`.
+Helm adresse ces problématiques avec un client `helm` qui se connecte à l'API d'un cluster Kubernetes sous la forme d'un binaire développé en `Go` (il utilise le même fonctionnment que `kubectl` avec kubeconfig).
+Les applications/services à déployer seront packagés dans une `chart`. Helm utilise `gotemplate` pour proposer du templating en amont du déploiement. Helm installe les ressources dans un cluster Kubernetes regroupé sous une `release`.
 
-Une chart se présente sous la forme d'un tar.gz (version packagé) ou d'un repertoire contenant l'arborescence suivante :
+Une chart se présente sous la forme d'un tar.gz (version packagé) ou d'un répertoire contenant l'arborescence suivante :
 
 ```shell
 charts/                # Charts en dépendance
-templates/             # Repertoire des ressources yaml à templétiser
+templates/             # Répertoire des ressources yaml à templétiser
    deploiement.yaml    # Ressource yaml
    ingress.yaml
    service.yaml
-   NOTES.txt           # Output présenté à l'utilisateur à la fin de l'installation (peut etre templétisé)
-   _helpers.tpl        # Valeurs précalulées par templating
+   NOTES.txt           # Output présenté à l'utilisateur à la fin de l'installation (peut être templétisé)
+   _helpers.tpl        # Valeurs précalculées par templating
 .helmignore            # Fichiers à ignorer lors du packaging de la chart
 Chart.yaml             # Fichier principal de la chart
-README.md              # Documentation ! très important pour comprendre comment configurer la chart !
+README.md              # Documentation ! Très important pour comprendre comment configurer la chart !
 values.yaml            # Valeurs par défaut
 ```
 
-Le fichier principal `Chart.yaml` se présente comme une ressource (une version d'api et des clés/valeurs).
+Le fichier principal `Chart.yaml` se présente comme une ressource (une version d'API et des clés/valeurs).
 
-Il faut donc préciser la version v2 de l'api pour helm v3 (version v1 pour Helm v2).
+Il faut donc préciser la version v2 de l'API pour helm v3 (version v1 pour Helm v2).
 La version de la chart permet de suivre le cycle de vie des modifications que l'on va pouvoir déployer.
 La version applicative a son propre cycle de vie, elle correspond à un tag d'une image docker. Une montée de version applicative entraîne une montée de version de la chart, un changement dans la chart ne correspond pas forcement à une montée de version de l'application (même fonctionnement qu'une dépendance dans du code applicatif).
 
@@ -248,7 +249,7 @@ version: 0.1.0
 appVersion: 1.0.0
 ```
 
-Helm fonctionne de manière très simple, il va prendre tous les fichiers dans le répertoire `templates`, résoudre le templating à l'aide de contextes et de valeurs pour créer un fichier yaml qui contiendra toutes les ressources à déployer dans le bon ordre. Helm va comparer la précédente installation pour modifier uniquement les ressources en écart. Si le déploiement est valide, helm met à jour la release dans kubernetes pour indiquer la version et les ressources déployées, cette release sera la base de comparaison pour la prochaine installation.
+Helm fonctionne de manière très simple, il va prendre tous les fichiers dans le répertoire `templates`, résoudre le templating à l'aide de contextes et de valeurs pour créer un fichier yaml qui contiendra toutes les ressources à déployer dans le bon ordre. Helm va comparer la précédente installation pour modifier uniquement les ressources en écart. Si le déploiement est valide, Helm met à jour la release dans Kubernetes pour indiquer la version et les ressources déployées, cette release sera la base de comparaison pour la prochaine installation.
 
 Helm utilise les avantages du format yaml pour merger les fichiers :
 
@@ -270,7 +271,7 @@ application:
 database: dev
 ```
 
-Helm gère la mise à jour des ressources mais ne gère pas la prise en compte des changements, c'est le cluster kubernetes en fonction de son paramétrage qui va réaliser ces actions.
+Helm gère la mise à jour des ressources mais ne gère pas la prise en compte des changements, c'est le cluster Kubernetes en fonction de son paramétrage qui va réaliser ces actions.
 Par exemple, mettre à jour un secret ne relance pas les pods qui utilisent ce secret.
 
 ![helm](./assets/helm.png)
