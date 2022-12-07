@@ -128,7 +128,6 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 80
-  type: { Loadbalancer | ClusterIP | NodePort }
 ```
 
 ### Configmaps & Secrets
