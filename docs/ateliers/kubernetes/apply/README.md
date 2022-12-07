@@ -103,7 +103,7 @@ subjects:
 
 ~~Lors de la création d'un ServiceAccount kubernetes lui associe un secret et notamment un token qui va nous servir pour à nous connecter au dashboard~~
 
-Depuis la v1.24, le secret n'est plus automatiquement crée lors de la création d'un ServiceAccount, il faut donc le créer manuellement en appliquant ce fichier yaml:
+Depuis la v1.24, le secret n'est plus automatiquement créé lors de la création d'un ServiceAccount, il faut donc le créer manuellement en appliquant ce fichier yaml:
 
 ```yaml
 apiVersion: v1
