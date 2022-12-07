@@ -2,7 +2,7 @@
 
 ## Installation des outils
 
-Ce workshop peut être réalisé sur Windows 10 ou linux pour chaque commande si nécessaire il y aura les versions dans un paragraphe à dérouler.
+Ce workshop peut être réalisé sur Windows 10 ou Linux. Pour chaque commande, si nécessaire, il y aura les versions dans un paragraphe à dérouler.
 
 Pour réaliser ce worshop vous devez avoir [docker](https://www.docker.com/products/docker-desktop) (minimun v20.10.5) installé sur votre machine et être l'admin de votre poste de travail.
 
